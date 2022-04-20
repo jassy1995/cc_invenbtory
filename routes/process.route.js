@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.post("/register-author", controller.registerAuthor);
 router.post("/create-inventory", controller.createInventory);
+router.get("/authors", controller.Authors);
+router.get("/inventories", controller.Inventory);
 // router.post("/multiple-file", upload.array("image"), controller1.multipleFile);
 // router.post("/video", upload.single("video"), controller1.videoUpload);
 // router.post("/audio", upload.single("audio"), controller1.audioUpload);

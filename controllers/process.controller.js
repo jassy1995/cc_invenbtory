@@ -15,3 +15,19 @@ exports.createInventory = async (req, res, next) => {
   const inventory = await author.createInventory(req.body);
   return res.status(200).json({ message: "created", data: inventory });
 };
+
+exports.Authors = async (req, res, next) => {
+  const authors = await Author.findAll();
+  return res.status(200).json({ message: "success", data: authors });
+};
+
+exports.Inventory = async (req, res, next) => {
+  const result = await Inventory.findAll({
+    include: [
+      {
+        model: Author,
+        required: true,
+      },
+    ],
+  });
+};

@@ -2904,3 +2904,33 @@ SyntaxError: Unexpected identifier
     at Object.<anonymous> (C:\CREDITCLAN\web_hook\Inventory\models\index.js:15:19)
     at Module._compile (internal/modules/cjs/loader.js:1063:30)
     at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10) }
+{ time: [34m20-04-2022 17:32:01[39m level: [31merror[39m message: uncaughtException: Unexpected identifier
+C:\CREDITCLAN\web_hook\Inventory\controllers\process.controller.js:21
+     return res.status(200).json({ message: "success", data: authors });
+            ^^^
+
+SyntaxError: Unexpected identifier
+    at wrapSafe (internal/modules/cjs/loader.js:979:16)
+    at Module._compile (internal/modules/cjs/loader.js:1027:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Module.require (internal/modules/cjs/loader.js:952:19)
+    at require (internal/modules/cjs/helpers.js:88:18)
+    at Object.<anonymous> (C:\CREDITCLAN\web_hook\Inventory\routes\process.route.js:2:18)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10) stack: C:\CREDITCLAN\web_hook\Inventory\controllers\process.controller.js:21
+     return res.status(200).json({ message: "success", data: authors });
+            ^^^
+
+SyntaxError: Unexpected identifier
+    at wrapSafe (internal/modules/cjs/loader.js:979:16)
+    at Module._compile (internal/modules/cjs/loader.js:1027:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10)
+    at Module.load (internal/modules/cjs/loader.js:928:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:769:14)
+    at Module.require (internal/modules/cjs/loader.js:952:19)
+    at require (internal/modules/cjs/helpers.js:88:18)
+    at Object.<anonymous> (C:\CREDITCLAN\web_hook\Inventory\routes\process.route.js:2:18)
+    at Module._compile (internal/modules/cjs/loader.js:1063:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1092:10) }
