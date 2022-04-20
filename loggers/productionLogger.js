@@ -7,7 +7,7 @@ const myFormat = printf(({ level, message, timestamp, stack }) => {
   return `{ time: ${timestamp} level: ${level} message: ${message} stack: ${stack} }`;
 });
 
-function productionLogger(db) {
+function productionLogger() {
   const logger = createLogger({
     level: "debug",
     format: combine(
@@ -19,11 +19,6 @@ function productionLogger(db) {
       new transports.File({
         filename: "logs/errors.log",
         level: "error",
-      }),
-      new transports.MongoDB({
-        db,
-        level: "error",
-        options: { useUnifiedTopology: true },
       }),
       new transports.Console(),
     ],

@@ -5,7 +5,7 @@ require("dotenv").config();
 let logger = null;
 const { NODE_ENV } = process.env;
 if (NODE_ENV === "production") {
-  logger = productionLogger(mongoURI);
+  logger = productionLogger();
 } else {
   logger = developmentLogger();
 }
