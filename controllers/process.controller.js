@@ -11,8 +11,7 @@ exports.registerAuthor = async (req, res, next) => {
 };
 
 exports.createInventory = async (req, res, next) => {
-  // const author = await Author.findOne({ where: { id: req.body.author_id } });
-  // const inventory = await author.createInventory(req.body);
-  const inventory = await Inventory.findOne({ where: { id: 1 } });
+  const author = await Author.findOne({ where: { id: req.body.author_id } });
+  const inventory = await author.createInventory(req.body);
   return res.status(200).json({ message: "created", data: inventory });
 };
