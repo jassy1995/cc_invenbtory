@@ -6,17 +6,20 @@ const Request = (sequelize, DataTypes, Sequelize) =>
       allowNull: false,
       autoIncrement: true,
     },
-    title: {
-      type: DataTypes.TEXT,
+    property_id: {
+      type: DataTypes.INTEGER,
     },
 
-    description: {
-      type: DataTypes.TEXT,
-      validate: {
-        len: [7, 16],
-      },
+    request_id: {
+      type: DataTypes.INTEGER,
     },
-    product: {
+    name: {
+      type: DataTypes.TEXT,
+    },
+    email: {
+      type: DataTypes.TEXT,
+    },
+    phone: {
       type: DataTypes.TEXT,
     },
   });
