@@ -8,9 +8,6 @@ const Inventory = (sequelize, DataTypes, Sequelize) =>
     },
     title: {
       type: DataTypes.TEXT,
-      validate: {
-        isUrl: true,
-      },
     },
     description: {
       type: DataTypes.TEXT,
