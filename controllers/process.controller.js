@@ -116,11 +116,11 @@ exports.moveInventoryToMarket = async (req, res, next) => {
   await Inventory.update(
     { marketplace: 1 },
     {
-      where: { id: property_id },
+      where: { id: req.body.property_id },
     }
   );
   const result = await Inventory.findOne({
-    where: { id: property_id },
+    where: { id: req.body.property_id },
     include: [
       {
         model: Author,
@@ -135,11 +135,11 @@ exports.removeInventoryFromMarket = async (req, res, next) => {
   await Inventory.update(
     { marketplace: 0 },
     {
-      where: { id: property_id },
+      where: { id: req.body.property_id },
     }
   );
   const result = await Inventory.findOne({
-    where: { id: property_id },
+    where: { id: req.body.property_id },
     include: [
       {
         model: Author,
@@ -154,11 +154,11 @@ exports.setPropertyAsOccupy = async (req, res, next) => {
   await Inventory.update(
     { occupied: 1 },
     {
-      where: { id: property_id },
+      where: { id: req.body.property_id },
     }
   );
   const result = await Inventory.findOne({
-    where: { id: property_id },
+    where: { id: req.body.property_id },
     include: [
       {
         model: Author,
