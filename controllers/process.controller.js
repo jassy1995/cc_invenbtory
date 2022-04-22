@@ -29,11 +29,15 @@ exports.updateAuthor = async (req, res, next) => {
 };
 
 exports.createInventory = async (req, res, next) => {
-  const { error, value } = AuthorIdValidator({ author_id: req.body.author_id });
+  const { error, value } = AuthorIdValidator({
+    author_id: req.body.author_id,
+  });
   if (error) {
     return res.status(400).json({ message: error.details[0].message });
   }
-  const author = await Author.findOne({ where: { id: req.body.author_id } });
+  const author = await Author.findOne({
+    where: { id: req.body.author_id },
+  });
   if (!author) {
     return res
       .status(400)
@@ -84,7 +88,7 @@ exports.inventoryInStore = async (req, res, next) => {
 
 exports.inventoryInMarket = async (req, res, next) => {
   const result = await Inventory.findAll({
-    where: { shelf: 1, marketplace: 1, occupied: 0 },
+    where: { marketplace: 1 },
     include: [
       {
         model: Author,
@@ -97,7 +101,7 @@ exports.inventoryInMarket = async (req, res, next) => {
 
 exports.occupiedInventory = async (req, res, next) => {
   const result = await Inventory.findAll({
-    where: { shelf: 1, marketplace: 1, occupied: 1 },
+    where: { occupied: 1 },
     include: [
       {
         model: Author,
@@ -129,6 +133,25 @@ exports.moveInventoryToMarket = async (req, res, next) => {
 
 exports.removeInventoryFromMarket = async (req, res, next) => {
   await Inventory.update(
+    { marketplace: 0 },
+    {
+      where: { id: property_id },
+    }
+  );
+  const result = await Inventory.findOne({
+    where: { id: property_id },
+    include: [
+      {
+        model: Author,
+        required: true,
+      },
+    ],
+  });
+  return res.status(200).json({ message: "success", data: result });
+};
+
+exports.setPropertyAsOccupy = async (req, res, next) => {
+  await Inventory.update(
     { occupied: 1 },
     {
       where: { id: property_id },
@@ -144,6 +167,93 @@ exports.removeInventoryFromMarket = async (req, res, next) => {
     ],
   });
   return res.status(200).json({ message: "success", data: result });
+};
+
+exports.filterInventory = async (req, res, next) => {
+  //filter by room number
+  if (req.body.no_of_rooms) {
+    const inventory = await Inventory.findAll({
+      where: { no_of_rooms: req.body.no_of_rooms },
+      include: [
+        {
+          model: Author,
+          required: true,
+        },
+      ],
+    });
+    return res.status(200).json({ message: "created", data: inventory });
+  }
+
+  // filter by house type
+  if (req.body.house_type) {
+    const inventory = await Inventory.findAll({
+      where: { house_type: req.body.house_type },
+      include: [
+        {
+          model: Author,
+          required: true,
+        },
+      ],
+    });
+    return res.status(200).json({ message: "created", data: inventory });
+  }
+
+  //filter by amount
+  if (req.body.amount_min && req.body.amount_max) {
+    const inventory = await Inventory.findAll({
+      where: {
+        monthly_rate: {
+          [Op.between]: [req.body.amount_min, req.body.amount_max],
+        },
+      },
+      include: [
+        {
+          model: Author,
+          required: true,
+        },
+      ],
+    });
+    return res.status(200).json({ message: "created", data: inventory });
+  }
+  //filter by country
+  if (req.body.country) {
+    const inventory = await Inventory.findAll({
+      where: { country: req.body.country },
+      include: [
+        {
+          model: Author,
+          required: true,
+        },
+      ],
+    });
+    return res.status(200).json({ message: "created", data: inventory });
+  }
+  //filter by state
+  if (req.body.state) {
+    const inventory = await Inventory.findAll({
+      where: { state: req.body.state },
+      include: [
+        {
+          model: Author,
+          required: true,
+        },
+      ],
+    });
+    return res.status(200).json({ message: "created", data: inventory });
+  }
+  //filter by local government
+  if (req.body.lga) {
+    const inventory = await Inventory.findAll({
+      where: { lga: req.body.lga },
+      include: [
+        {
+          model: Author,
+          required: true,
+        },
+      ],
+    });
+    return res.status(200).json({ message: "created", data: inventory });
+  }
 };
 
 exports.createRequest = async (req, res, next) => {

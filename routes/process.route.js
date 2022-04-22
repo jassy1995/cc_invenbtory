@@ -19,6 +19,8 @@ router.post("/move-to-market", controller.moveInventoryToMarket);
 router.post("/remove-from-market", controller.removeInventoryFromMarket);
 router.post("/create-request", controller.createRequest);
 router.get("/requests", controller.getRequest);
+router.post("/set-to-occupied", controller.setPropertyAsOccupy);
+router.post("/filter", controller.filterInventory);
 // router.post("/multiple-file", upload.array("image"), controller1.multipleFile);
 // router.post("/video", upload.single("video"), controller1.videoUpload);
 // router.post("/audio", upload.single("audio"), controller1.audioUpload);
