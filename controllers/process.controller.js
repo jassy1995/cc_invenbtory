@@ -75,7 +75,7 @@ exports.updateInventory = async (req, res, next) => {
 
 exports.inventoryInStore = async (req, res, next) => {
   const result = await Inventory.findAll({
-    where: { shelf: 1 },
+    where: { shelf: 1, marketplace: 0, occupied: 0 },
     include: [
       {
         model: Author,
@@ -88,7 +88,7 @@ exports.inventoryInStore = async (req, res, next) => {
 
 exports.inventoryInMarket = async (req, res, next) => {
   const result = await Inventory.findAll({
-    where: { marketplace: 1 },
+    where: { shelf: 0, marketplace: 1, occupied: 0 },
     include: [
       {
         model: Author,
@@ -101,7 +101,7 @@ exports.inventoryInMarket = async (req, res, next) => {
 
 exports.occupiedInventory = async (req, res, next) => {
   const result = await Inventory.findAll({
-    where: { occupied: 1 },
+    where: { shelf: 0, marketplace: 0, occupied: 1 },
     include: [
       {
         model: Author,
@@ -114,7 +114,7 @@ exports.occupiedInventory = async (req, res, next) => {
 
 exports.moveInventoryToMarket = async (req, res, next) => {
   await Inventory.update(
-    { marketplace: 1 },
+    { shelf: 0, marketplace: 1, occupied: 0 },
     {
       where: { id: req.body.property_id },
     }
@@ -133,7 +133,7 @@ exports.moveInventoryToMarket = async (req, res, next) => {
 
 exports.removeInventoryFromMarket = async (req, res, next) => {
   await Inventory.update(
-    { marketplace: 0 },
+    { shelf: 1, marketplace: 0, occupied: 0 },
     {
       where: { id: req.body.property_id },
     }
@@ -152,7 +152,7 @@ exports.removeInventoryFromMarket = async (req, res, next) => {
 
 exports.setPropertyAsOccupy = async (req, res, next) => {
   await Inventory.update(
-    { occupied: 1 },
+    { shelf: 0, marketplace: 0, occupied: 1 },
     {
       where: { id: req.body.property_id },
     }
