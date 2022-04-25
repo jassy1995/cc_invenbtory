@@ -1,7 +1,7 @@
 const express = require("express");
 const winston = require("./loggers");
 const app = express();
-const { Author, Inventory } = require("./models");
+const { Author, Inventory, OccupyProperty } = require("./models");
 
 //========= One To One =========
 // Salary.hasOne(Employee, {
@@ -23,6 +23,17 @@ Author.hasMany(Inventory, {
 });
 Inventory.belongsTo(Author, {
   foreignKey: "author_id",
+  targetKey: "id",
+  onDelete: "CASCADE",
+});
+
+Inventory.hasMany(OccupyProperty, {
+  foreignKey: "inventory_id",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+});
+OccupyProperty.belongsTo(Inventory, {
+  foreignKey: "inventory_id",
   targetKey: "id",
   onDelete: "CASCADE",
 });

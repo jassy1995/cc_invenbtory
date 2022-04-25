@@ -14,11 +14,17 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 const Author = require("./author.model")(sequelize, DataTypes, Sequelize);
 const Inventory = require("./inventory.model")(sequelize, DataTypes, Sequelize);
 const Request = require("./request.model")(sequelize, DataTypes, Sequelize);
+const OccupyProperty = require("./occuppy-property.model")(
+  sequelize,
+  DataTypes,
+  Sequelize
+);
 
 module.exports = {
   Author,
   Inventory,
   Request,
+  OccupyProperty,
   sequelize,
   Sequelize,
   Op,

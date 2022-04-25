@@ -1,4 +1,11 @@
-const { Request, Author, Inventory, Sequelize, Op } = require("../models");
+const {
+  Request,
+  Author,
+  Inventory,
+  OccupyProperty,
+  Sequelize,
+  Op,
+} = require("../models");
 const validator = require("../validator/author/register-validator");
 const AuthorIdValidator = require("../validator/author/author-id");
 
@@ -62,15 +69,25 @@ exports.Inventory = async (req, res, next) => {
 };
 
 exports.updateInventory = async (req, res, next) => {
-  let { property_id, ...others } = req.body;
-  await Inventory.update(others, {
-    where: { id: property_id },
+  const checkEligibility = Inventory.findOne({
+    where: { id: req.body.property_id },
   });
-  const inventory = await Inventory.findOne({
-    where: { id: property_id },
-  });
+  if (checkEligibility.shelf === 1) {
+    let { property_id, ...others } = req.body;
+    await Inventory.update(others, {
+      where: { id: property_id },
+    });
+    const inventory = await Inventory.findOne({
+      where: { id: property_id },
+    });
 
-  return res.status(200).json({ message: "success", data: inventory });
+    return res.status(200).json({ message: "success", data: inventory });
+  } else {
+    return res.status(200).json({
+      message: "you are not allow to update this property",
+      data: null,
+    });
+  }
 };
 
 exports.inventoryInStore = async (req, res, next) => {
@@ -155,6 +172,49 @@ exports.setPropertyAsOccupy = async (req, res, next) => {
     { shelf: 0, marketplace: 0, occupied: 1 },
     {
       where: { id: req.body.property_id },
+    }
+  );
+  const occupy = await Inventory.findOne({
+    where: { id: req.body.property_id },
+  });
+  await occupy.createOccupyProperty({
+    request_id: req.body.request_id,
+    monthly_rate: req.body.monthly_rate,
+    start_date: req.body.start_date,
+    end_date: null,
+    duration: null,
+  });
+  const result = await Inventory.findOne({
+    where: { id: req.body.property_id },
+    include: [
+      {
+        model: Author,
+        required: true,
+      },
+    ],
+  });
+  return res.status(200).json({ message: "success", data: result });
+};
+
+exports.unSetPropertyAsOccupy = async (req, res, next) => {
+  await Inventory.update(
+    { shelf: 1, marketplace: 0, occupied: 0 },
+    {
+      where: { id: req.body.property_id },
+    }
+  );
+
+  const opy = await OccupyProperty.findOne({
+    where: { inventory_id: req.body.property_id },
+  });
+  const date1 = new Date(opy.start_date);
+  const date2 = new Date(req.body.end_date);
+  const duration = Math.abs(date1.getMonth() - date2.getMonth());
+
+  await OccupyProperty.update(
+    { end_date: req.body.end_date, duration: duration },
+    {
+      where: { inventory_id: req.body.property_id },
     }
   );
   const result = await Inventory.findOne({
