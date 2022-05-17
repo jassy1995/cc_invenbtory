@@ -1,0 +1,20 @@
+{ time: [34m29-04-2022 09:38:24[39m level: [31merror[39m message: Cannot read property '1' of nullCannot read property '1' of null stack: TypeError: Cannot read property '1' of null
+    at firstchar (C:\CREDITCLAN\web_hook\Inventory\node_modules\body-parser\lib\types\json.js:176:37)
+    at parse (C:\CREDITCLAN\web_hook\Inventory\node_modules\body-parser\lib\types\json.js:79:19)
+    at C:\CREDITCLAN\web_hook\Inventory\node_modules\body-parser\lib\read.js:121:18
+    at invokeCallback (C:\CREDITCLAN\web_hook\Inventory\node_modules\raw-body\index.js:224:16)
+    at done (C:\CREDITCLAN\web_hook\Inventory\node_modules\raw-body\index.js:213:7)
+    at IncomingMessage.onEnd (C:\CREDITCLAN\web_hook\Inventory\node_modules\raw-body\index.js:273:7)
+    at IncomingMessage.emit (events.js:327:22)
+    at endReadableNT (internal/streams/readable.js:1327:12)
+    at processTicksAndRejections (internal/process/task_queues.js:80:21) }
+{ time: [34m29-04-2022 09:38:32[39m level: [31merror[39m message: Cannot read property '1' of nullCannot read property '1' of null stack: TypeError: Cannot read property '1' of null
+    at firstchar (C:\CREDITCLAN\web_hook\Inventory\node_modules\body-parser\lib\types\json.js:176:37)
+    at parse (C:\CREDITCLAN\web_hook\Inventory\node_modules\body-parser\lib\types\json.js:79:19)
+    at C:\CREDITCLAN\web_hook\Inventory\node_modules\body-parser\lib\read.js:121:18
+    at invokeCallback (C:\CREDITCLAN\web_hook\Inventory\node_modules\raw-body\index.js:224:16)
+    at done (C:\CREDITCLAN\web_hook\Inventory\node_modules\raw-body\index.js:213:7)
+    at IncomingMessage.onEnd (C:\CREDITCLAN\web_hook\Inventory\node_modules\raw-body\index.js:273:7)
+    at IncomingMessage.emit (events.js:327:22)
+    at endReadableNT (internal/streams/readable.js:1327:12)
+    at processTicksAndRejections (internal/process/task_queues.js:80:21) }

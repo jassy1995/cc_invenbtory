@@ -19,7 +19,7 @@ exports.registerAuthor = async (req, res, next) => {
 };
 
 exports.Authors = async (req, res, next) => {
-  const authors = await Author.findAll();
+  const authors = await Author.findAll({});
   return res.status(200).json({ message: "success", data: authors });
 };
 
@@ -247,7 +247,7 @@ exports.filterInventory = async (req, res, next) => {
   // filter by house type
   if (req.body.house_type) {
     const inventory = await Inventory.findAll({
-      where: { house_type: req.body.house_type },
+      where: { house_type: { [Op.like]: `%${req.body.house_type}%` } },
       include: [
         {
           model: Author,
@@ -278,7 +278,7 @@ exports.filterInventory = async (req, res, next) => {
   //filter by country
   if (req.body.country) {
     const inventory = await Inventory.findAll({
-      where: { country: req.body.country },
+      where: { country: { [Op.like]: `%${req.body.country}%` } },
       include: [
         {
           model: Author,
@@ -291,7 +291,7 @@ exports.filterInventory = async (req, res, next) => {
   //filter by state
   if (req.body.state) {
     const inventory = await Inventory.findAll({
-      where: { state: req.body.state },
+      where: { state: { [Op.like]: `%${req.body.state}%` } },
       include: [
         {
           model: Author,
@@ -304,7 +304,7 @@ exports.filterInventory = async (req, res, next) => {
   //filter by local government
   if (req.body.lga) {
     const inventory = await Inventory.findAll({
-      where: { lga: req.body.lga },
+      where: { lga: { [Op.like]: `%${req.body.lga}%` } },
       include: [
         {
           model: Author,

@@ -63,7 +63,7 @@ require("./util/db")();
 require("./util/middleware&route")(app);
 const path = require("path");
 
-const PORT = process.env.PORT || 4100;
+const PORT = process.env.PORT || 4300;
 
 app.listen(PORT, () => {
   winston.info(`Server is running at port ${PORT}`);
